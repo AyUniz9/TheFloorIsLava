@@ -1,0 +1,7 @@
+name: TheFloorIsLava
+version: '${project.version}'
+main: me.niz.thefloorislava.TheFloorIsLava
+api-version: 1.18
+authors: [ Niz ]
+description: The Floor Is Lava minigame !
+website: https://discord.io/AVizion
