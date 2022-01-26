@@ -1,1 +1,9 @@
 #   Main config file generated for TheFloorIsLava plugin.
+
+# Configure game settings.
+gameSettings:
+  gameTime: 300
+  lavaCooldown: 10
+  timeBeforeStart: 20
+  maxPlayers: 99
+  minPlayers: 2
