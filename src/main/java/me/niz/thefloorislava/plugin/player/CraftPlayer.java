@@ -1,31 +1,30 @@
 package me.niz.thefloorislava.plugin.player;
 
-import me.niz.thefloorislava.api.player.NPlayer;
+import me.niz.thefloorislava.api.player.GamePlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public class CraftNPlayer implements NPlayer {
+public class CraftPlayer implements GamePlayer {
 
     private final UUID playerUUID;
     private final String playerName;
     private boolean isPlaying = false, isSpectating = false;
     private GameMode gameMode = GameMode.NONE;
 
-    public CraftNPlayer(UUID playerUUID, String playerName) {
+    public CraftPlayer(UUID playerUUID, String playerName) {
         this.playerUUID = playerUUID;
         this.playerName = playerName;
     }
 
-    public CraftNPlayer(Player player) {
+    public CraftPlayer(org.bukkit.entity.Player player) {
         this(player.getUniqueId(), player.getName());
     }
 
 
     @Override
-    public Optional<Player> getBukkitPlayer() {
+    public Optional<org.bukkit.entity.Player> getBukkitPlayer() {
         return Optional.ofNullable(Bukkit.getPlayer(this.playerUUID));
     }
 
@@ -57,7 +56,7 @@ public class CraftNPlayer implements NPlayer {
     @Override
     public void setPlaying(boolean playing) {
         if (this.isPlaying == playing)
-            throw new IllegalStateException(String.format("Player %s is already in the right playing state.", this.playerName));
+            throw new IllegalStateException(String.format("CraftPlayer %s is already in the right playing state.", this.playerName));
 
         if (playing)
             this.gameMode = GameMode.PLAYING;
@@ -67,7 +66,7 @@ public class CraftNPlayer implements NPlayer {
     @Override
     public void setSpectating(boolean spectating) {
         if (this.isPlaying == spectating)
-            throw new IllegalStateException(String.format("Player %s is already in the right spectating state.", this.playerName));
+            throw new IllegalStateException(String.format("CraftPlayer %s is already in the right spectating state.", this.playerName));
 
         if (spectating)
             this.gameMode = GameMode.SPECTATING;

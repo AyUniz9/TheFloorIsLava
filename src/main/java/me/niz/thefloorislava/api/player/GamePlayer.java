@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface NPlayer {
+public interface GamePlayer {
 
     Optional<Player> getBukkitPlayer();
 

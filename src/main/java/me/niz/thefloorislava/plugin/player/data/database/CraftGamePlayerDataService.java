@@ -1,13 +1,12 @@
 package me.niz.thefloorislava.plugin.player.data.database;
 
 import me.niz.thefloorislava.TheFloorIsLava;
-import me.niz.thefloorislava.api.player.data.database.PlayerDataDAO;
-import me.niz.thefloorislava.api.player.data.database.PlayerDataModel;
-import me.niz.thefloorislava.api.player.data.database.PlayerDataService;
+import me.niz.thefloorislava.api.player.data.GamePlayerData;
+import me.niz.thefloorislava.api.player.data.database.GamePlayerDataDAO;
+import me.niz.thefloorislava.api.player.data.database.GamePlayerDataModel;
+import me.niz.thefloorislava.api.player.data.database.GamePlayerDataService;
 import me.niz.thefloorislava.api.exception.SQLPlayerDataException;
-import me.niz.thefloorislava.api.player.NPlayer;
-import me.niz.thefloorislava.api.player.data.PlayerData;
-import me.niz.thefloorislava.plugin.player.data.CraftPlayerData;
+import me.niz.thefloorislava.api.player.GamePlayer;
 import me.niz.thefloorislava.api.util.async.AsyncCallback;
 import me.niz.thefloorislava.api.util.async.AsyncRequest;
 import org.bukkit.Bukkit;
@@ -17,28 +16,28 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CraftPlayerDataService implements PlayerDataService {
+public class CraftGamePlayerDataService implements GamePlayerDataService {
 
     private final TheFloorIsLava plugin;
-    private final PlayerDataModel playerDataModel;
-    private final PlayerDataDAO playerDataDAO;
+    private final GamePlayerDataModel gamePlayerDataModel;
+    private final GamePlayerDataDAO gamePlayerDataDAO;
 
-    public CraftPlayerDataService(@NotNull TheFloorIsLava plugin, @NotNull PlayerDataModel playerDataModel, @NotNull PlayerDataDAO playerDataDAO) {
+    public CraftGamePlayerDataService(@NotNull TheFloorIsLava plugin, @NotNull GamePlayerDataModel gamePlayerDataModel, @NotNull GamePlayerDataDAO gamePlayerDataDAO) {
         this.plugin = plugin;
-        this.playerDataModel = playerDataModel;
-        this.playerDataDAO = playerDataDAO;
+        this.gamePlayerDataModel = gamePlayerDataModel;
+        this.gamePlayerDataDAO = gamePlayerDataDAO;
     }
 
     @Override
     public void loadPlayer(Player player) {
         new AsyncRequest(this.plugin).executeTask(() -> {
             try {
-                Optional<PlayerData> optionalPlayerData = this.playerDataDAO.loadPlayer(player.getUniqueId());
+                Optional<GamePlayerData> optionalPlayerData = this.gamePlayerDataDAO.loadPlayer(player.getUniqueId());
 
                 if (!optionalPlayerData.isPresent())
-                    throw new IllegalStateException(String.format("Player %s doesn't exist.", player.getName()));
+                    throw new IllegalStateException(String.format("CraftPlayer %s doesn't exist.", player.getName()));
 
-                this.playerDataModel.addPlayerData(optionalPlayerData.get());
+                this.gamePlayerDataModel.addPlayerData(optionalPlayerData.get());
             } catch (SQLPlayerDataException e) {
                 e.printStackTrace();
             }
@@ -52,20 +51,20 @@ public class CraftPlayerDataService implements PlayerDataService {
 
     @Override
     public void unloadPlayer(UUID playerUUID) {
-        if (!this.playerDataModel.containsPlayer(playerUUID))
+        if (!this.gamePlayerDataModel.containsPlayer(playerUUID))
             throw new IllegalStateException(String.format("Can't unload player data because player data is not loaded. UUID: %s", playerUUID));
 
-        this.playerDataModel.removePlayerData(playerUUID);
+        this.gamePlayerDataModel.removePlayerData(playerUUID);
     }
 
     @Override
-    public void createPlayerData(NPlayer nPlayer) {
+    public void createPlayerData(GamePlayer nPlayer) {
         new AsyncRequest(this.plugin).executeTask(() -> {
             try {
-                PlayerData playerData = new CraftPlayerData(nPlayer);
+                GamePlayerData gamePlayerData = new me.niz.thefloorislava.plugin.player.data.GamePlayerData(nPlayer);
 
-                this.playerDataDAO.createPlayerData(playerData);
-                this.playerDataModel.addPlayerData(playerData);
+                this.gamePlayerDataDAO.createPlayerData(gamePlayerData);
+                this.gamePlayerDataModel.addPlayerData(gamePlayerData);
             } catch (SQLPlayerDataException e) {
                 e.printStackTrace();
             }
@@ -73,13 +72,13 @@ public class CraftPlayerDataService implements PlayerDataService {
     }
 
     @Override
-    public void resetPlayer(NPlayer nPlayer) {
+    public void resetPlayer(GamePlayer nPlayer) {
         new AsyncRequest(this.plugin).executeTask(() -> {
             try {
-                PlayerData playerData = new CraftPlayerData(nPlayer);
+                GamePlayerData gamePlayerData = new me.niz.thefloorislava.plugin.player.data.GamePlayerData(nPlayer);
 
-                this.playerDataDAO.resetPlayerData(playerData);
-                this.playerDataModel.replacePlayerData(playerData);
+                this.gamePlayerDataDAO.resetPlayerData(gamePlayerData);
+                this.gamePlayerDataModel.replacePlayerData(gamePlayerData);
             } catch (SQLPlayerDataException e) {
                 e.printStackTrace();
             }
@@ -87,13 +86,13 @@ public class CraftPlayerDataService implements PlayerDataService {
     }
 
     @Override
-    public Optional<PlayerData> getOnlinePlayerData(NPlayer nPlayer) {
-        return Optional.of(this.playerDataModel.getPlayerData(nPlayer.getUUID()).get());
+    public Optional<GamePlayerData> getOnlinePlayerData(GamePlayer nPlayer) {
+        return Optional.of(this.gamePlayerDataModel.getPlayerData(nPlayer.getUUID()).get());
     }
 
     @Override
-    public void getPlayerData(NPlayer nPlayer, AsyncCallback<Optional<PlayerData>> asyncCallback) {
-        Optional<PlayerData> optionalModelPlayerData = this.playerDataModel.getPlayerData(nPlayer.getUUID());
+    public void getPlayerData(GamePlayer nPlayer, AsyncCallback<Optional<GamePlayerData>> asyncCallback) {
+        Optional<GamePlayerData> optionalModelPlayerData = this.gamePlayerDataModel.getPlayerData(nPlayer.getUUID());
 
         if (optionalModelPlayerData.isPresent()) {
             asyncCallback.onResponse(optionalModelPlayerData);
@@ -102,7 +101,7 @@ public class CraftPlayerDataService implements PlayerDataService {
 
         new AsyncRequest(this.plugin).executeTask(() -> {
             try {
-                Optional<PlayerData> optionalDbPlayerData = this.playerDataDAO.loadPlayer(nPlayer.getUUID());
+                Optional<GamePlayerData> optionalDbPlayerData = this.gamePlayerDataDAO.loadPlayer(nPlayer.getUUID());
 
                 this.runSync(() -> asyncCallback.onResponse(optionalDbPlayerData));
             } catch (SQLPlayerDataException e) {
@@ -113,14 +112,14 @@ public class CraftPlayerDataService implements PlayerDataService {
 
     @Override
     public void containsPlayer(UUID playerUUID, AsyncCallback<Boolean> asyncCallback) {
-        if (this.playerDataModel.containsPlayer(playerUUID)) {
+        if (this.gamePlayerDataModel.containsPlayer(playerUUID)) {
             asyncCallback.onResponse(true);
             return;
         }
 
         new AsyncRequest(this.plugin).executeTask(() -> {
             try {
-                if (this.playerDataDAO.containsPlayerData(playerUUID))
+                if (this.gamePlayerDataDAO.containsPlayerData(playerUUID))
                     this.runSync(() -> asyncCallback.onResponse(true));
                 else
                     this.runSync(() -> asyncCallback.onResponse(false));

@@ -1,10 +1,10 @@
 package me.niz.thefloorislava.api.player.data;
 
-import me.niz.thefloorislava.api.player.NPlayer;
+import me.niz.thefloorislava.api.player.GamePlayer;
 
-public interface PlayerData {
+public interface GamePlayerData {
 
-    NPlayer getNPlayer();
+    GamePlayer getNPlayer();
 
     int getPlayedGames();
     int getWonGames();

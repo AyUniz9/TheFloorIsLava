@@ -1,29 +1,28 @@
 package me.niz.thefloorislava.plugin.player.data;
 
-import me.niz.thefloorislava.api.player.NPlayer;
-import me.niz.thefloorislava.api.player.data.PlayerData;
+import me.niz.thefloorislava.api.player.GamePlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class CraftPlayerData implements PlayerData {
+public class GamePlayerData implements me.niz.thefloorislava.api.player.data.GamePlayerData {
 
 
-    private final NPlayer nPlayer;
+    private final GamePlayer nPlayer;
     private int playedGames;
     private int wonGames;
 
-    public CraftPlayerData(@NotNull NPlayer nPlayer, int playedGames, int wonGames) {
+    public GamePlayerData(@NotNull GamePlayer nPlayer, int playedGames, int wonGames) {
         this.nPlayer = nPlayer;
         this.playedGames = playedGames;
         this.wonGames = wonGames;
     }
 
-    public CraftPlayerData(@NotNull NPlayer nPlayer) {
+    public GamePlayerData(@NotNull GamePlayer nPlayer) {
         this(nPlayer, 0, 0);
     }
 
 
     @Override
-    public NPlayer getNPlayer() {
+    public GamePlayer getNPlayer() {
         return this.nPlayer;
     }
 
@@ -40,7 +39,7 @@ public class CraftPlayerData implements PlayerData {
     @Override
     public void reset() {
         if (this.playedGames == 0)
-            throw new IllegalStateException("Player's data cannot be reset ! Played game is already zero.");
+            throw new IllegalStateException("CraftPlayer's data cannot be reset ! Played game is already zero.");
 
         this.playedGames = 0;
         this.wonGames = 0;
@@ -54,7 +53,7 @@ public class CraftPlayerData implements PlayerData {
     @Override
     public void incrementWonGames() {
         if(this.playedGames == this.wonGames)
-            throw new IllegalStateException("Player ");
+            throw new IllegalStateException("CraftPlayer ");
         this.wonGames += 1;
     }
 }
