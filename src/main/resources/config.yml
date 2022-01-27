@@ -2,8 +2,14 @@
 
 # Configure game settings.
 gameSettings:
-  gameTime: 300
+  # Duration of a game. (second)
+  gameDuration: 300
+  # Time between two layers of lava. (second)
   lavaCooldown: 10
+  # Time before game start when player number reach the minimum player number. (second)
   timeBeforeStart: 20
+  # Max players for a game.
   maxPlayers: 99
+  # Minimum player before starting a game.
+  # Can be bypassed with the following command: /start.
   minPlayers: 2
