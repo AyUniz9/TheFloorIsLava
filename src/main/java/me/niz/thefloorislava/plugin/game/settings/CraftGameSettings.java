@@ -4,10 +4,10 @@ import me.niz.thefloorislava.api.game.settings.GameSettings;
 
 public class CraftGameSettings implements GameSettings {
 
-    private int gameTime, lavaCooldown, timeBeforeStart, maxPlayers, minPlayers;
+    private int gameDuration, lavaCooldown, timeBeforeStart, maxPlayers, minPlayers;
 
-    public CraftGameSettings(int gameTime, int lavaCooldown, int timeBeforeStart, int maxPlayers, int minPlayers) {
-        this.setGameTime(gameTime);
+    public CraftGameSettings(int gameDuration, int lavaCooldown, int timeBeforeStart, int maxPlayers, int minPlayers) {
+        this.setGameDuration(gameDuration);
         this.setLavaCooldown(lavaCooldown);
         this.setTimeBeforeStart(timeBeforeStart);
         this.setMaxPlayers(maxPlayers);
@@ -16,7 +16,7 @@ public class CraftGameSettings implements GameSettings {
 
     @Override
     public int getGameTime() {
-        return this.gameTime;
+        return this.gameDuration;
     }
 
     @Override
@@ -39,11 +39,11 @@ public class CraftGameSettings implements GameSettings {
         return this.minPlayers;
     }
 
-    private void setGameTime(int gameTime) {
-        if(gameTime < 0)
+    private void setGameDuration(int gameDuration) {
+        if(gameDuration < 0)
             throw new IllegalArgumentException("Game time cannot be negative or zero !");
 
-        this.gameTime = gameTime;
+        this.gameDuration = gameDuration;
     }
 
     private void setLavaCooldown(int lavaCooldown) {
