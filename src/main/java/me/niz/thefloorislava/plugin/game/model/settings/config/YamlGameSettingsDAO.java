@@ -1,9 +1,9 @@
-package me.niz.thefloorislava.plugin.game.settings.config;
+package me.niz.thefloorislava.plugin.game.model.settings.config;
 
-import me.niz.thefloorislava.api.game.settings.GameSettings;
-import me.niz.thefloorislava.api.game.settings.config.GameSettingsDAO;
+import me.niz.thefloorislava.api.game.model.settings.GameSettings;
+import me.niz.thefloorislava.api.game.model.settings.config.GameSettingsDAO;
 import me.niz.thefloorislava.plugin.configuration.FileHandler;
-import me.niz.thefloorislava.plugin.game.settings.CraftGameSettings;
+import me.niz.thefloorislava.plugin.game.model.settings.CraftGameSettings;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,11 +22,11 @@ public class YamlGameSettingsDAO implements GameSettingsDAO {
 
         FileConfiguration mainConfig = this.fileHandler.getMainConfigFile().getConfig();
 
-        int gameDuration = mainConfig.getInt("gameDuration");
-        int lavaCooldown = mainConfig.getInt("lavaCooldown");
-        int timeBeforeStart = mainConfig.getInt("timeBeforeStart");
-        int maxPlayers = mainConfig.getInt("maxPlayers");
-        int minPlayers = mainConfig.getInt("minPlayers");
+        int gameDuration = mainConfig.getInt("gameSettings.gameDuration");
+        int lavaCooldown = mainConfig.getInt("gameSettings.lavaCooldown");
+        int timeBeforeStart = mainConfig.getInt("gameSettings.timeBeforeStart");
+        int maxPlayers = mainConfig.getInt("gameSettings.maxPlayers");
+        int minPlayers = mainConfig.getInt("gameSettings.minPlayers");
 
         return Optional.of(new CraftGameSettings(gameDuration, lavaCooldown, timeBeforeStart, maxPlayers, minPlayers));
     }

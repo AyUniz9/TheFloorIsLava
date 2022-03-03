@@ -1,4 +1,4 @@
-package me.niz.thefloorislava.api.util.sql;
+package me.niz.thefloorislava.api.tools.sql;
 
 import org.bukkit.plugin.Plugin;
 

@@ -5,7 +5,7 @@ import me.niz.thefloorislava.api.player.data.GamePlayerData;
 import me.niz.thefloorislava.api.player.data.database.GamePlayerDataDAO;
 import me.niz.thefloorislava.api.exception.SQLPlayerDataException;
 import me.niz.thefloorislava.plugin.player.CraftPlayer;
-import me.niz.thefloorislava.api.util.sql.DbConnection;
+import me.niz.thefloorislava.api.tools.sql.DbConnection;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;

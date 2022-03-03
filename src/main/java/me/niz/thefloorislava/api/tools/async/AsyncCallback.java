@@ -1,4 +1,4 @@
-package me.niz.thefloorislava.api.util.async;
+package me.niz.thefloorislava.api.tools.async;
 
 public interface AsyncCallback<T> {
 

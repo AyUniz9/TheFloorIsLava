@@ -1,9 +1,9 @@
-package me.niz.thefloorislava.plugin.game.settings.config;
+package me.niz.thefloorislava.plugin.game.model.settings.config;
 
-import me.niz.thefloorislava.api.game.settings.GameSettings;
-import me.niz.thefloorislava.api.game.settings.config.GameSettingsDAO;
-import me.niz.thefloorislava.api.game.settings.config.GameSettingsModel;
-import me.niz.thefloorislava.api.game.settings.config.GameSettingsService;
+import me.niz.thefloorislava.api.game.model.settings.GameSettings;
+import me.niz.thefloorislava.api.game.model.settings.config.GameSettingsDAO;
+import me.niz.thefloorislava.api.game.model.settings.config.GameSettingsModel;
+import me.niz.thefloorislava.api.game.model.settings.config.GameSettingsService;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

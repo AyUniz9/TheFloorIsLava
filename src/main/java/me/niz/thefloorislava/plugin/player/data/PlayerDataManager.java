@@ -7,7 +7,7 @@ import me.niz.thefloorislava.api.player.data.database.GamePlayerDataService;
 import me.niz.thefloorislava.plugin.player.data.database.CraftGamePlayerDataModel;
 import me.niz.thefloorislava.plugin.player.data.database.CraftGamePlayerDataService;
 import me.niz.thefloorislava.plugin.player.data.database.SQLGamePlayerDataDAO;
-import me.niz.thefloorislava.api.util.sql.DbConnection;
+import me.niz.thefloorislava.api.tools.sql.DbConnection;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 

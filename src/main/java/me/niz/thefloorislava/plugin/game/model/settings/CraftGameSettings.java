@@ -1,6 +1,6 @@
-package me.niz.thefloorislava.plugin.game.settings;
+package me.niz.thefloorislava.plugin.game.model.settings;
 
-import me.niz.thefloorislava.api.game.settings.GameSettings;
+import me.niz.thefloorislava.api.game.model.settings.GameSettings;
 
 public class CraftGameSettings implements GameSettings {
 

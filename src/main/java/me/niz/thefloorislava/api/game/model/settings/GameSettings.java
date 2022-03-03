@@ -1,4 +1,4 @@
-package me.niz.thefloorislava.api.game.settings;
+package me.niz.thefloorislava.api.game.model.settings;
 
 public interface GameSettings {
 
